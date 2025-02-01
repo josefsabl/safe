@@ -1,0 +1,29 @@
+<?php
+
+namespace Safe;
+
+use Safe\Exceptions\GettextException;
+
+/**
+ * The bindtextdomain function sets or gets the path
+ * for a domain.
+ * 
+ * @param string $domain The domain.
+ * @param  $directory The directory path.
+ * An empty string means the current directory.
+ * If NULL, the currently set directory is returned.
+ * @return string The full pathname for the domain currently being set.
+ * @throws GettextException
+ * 
+ */
+function bindtextdomain(string $domain,  $directory = null): string
+{
+    error_clear_last();
+    $result = \bindtextdomain($domain, $directory);
+    if ($result === false) {
+        throw GettextException::createFromPhpError();
+    }
+    return $result;
+}
+
+

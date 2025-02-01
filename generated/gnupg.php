@@ -5,16 +5,16 @@ namespace Safe;
 use Safe\Exceptions\GnupgException;
 
 /**
- *
- *
+ * 
+ * 
  * @param resource $identifier The gnupg identifier, from a call to
  * gnupg_init or gnupg.
  * @param string $fingerprint The fingerprint key.
  * @param string $passphrase The pass phrase.
  * @throws GnupgException
- *
+ * 
  */
-function gnupg_adddecryptkey($identifier, string $fingerprint, string $passphrase): void
+function gnupg_adddecryptkey( $identifier, string $fingerprint, string $passphrase): void
 {
     error_clear_last();
     $result = \gnupg_adddecryptkey($identifier, $fingerprint, $passphrase);
@@ -25,15 +25,15 @@ function gnupg_adddecryptkey($identifier, string $fingerprint, string $passphras
 
 
 /**
- *
- *
+ * 
+ * 
  * @param resource $identifier The gnupg identifier, from a call to
  * gnupg_init or gnupg.
  * @param string $fingerprint The fingerprint key.
  * @throws GnupgException
- *
+ * 
  */
-function gnupg_addencryptkey($identifier, string $fingerprint): void
+function gnupg_addencryptkey( $identifier, string $fingerprint): void
 {
     error_clear_last();
     $result = \gnupg_addencryptkey($identifier, $fingerprint);
@@ -44,21 +44,21 @@ function gnupg_addencryptkey($identifier, string $fingerprint): void
 
 
 /**
- *
- *
+ * 
+ * 
  * @param resource $identifier The gnupg identifier, from a call to
  * gnupg_init or gnupg.
  * @param string $fingerprint The fingerprint key.
  * @param string $passphrase The pass phrase.
  * @throws GnupgException
- *
+ * 
  */
-function gnupg_addsignkey($identifier, string $fingerprint, string $passphrase = null): void
+function gnupg_addsignkey( $identifier, string $fingerprint, string $passphrase = null): void
 {
     error_clear_last();
     if ($passphrase !== null) {
         $result = \gnupg_addsignkey($identifier, $fingerprint, $passphrase);
-    } else {
+    }else {
         $result = \gnupg_addsignkey($identifier, $fingerprint);
     }
     if ($result === false) {
@@ -68,14 +68,14 @@ function gnupg_addsignkey($identifier, string $fingerprint, string $passphrase =
 
 
 /**
- *
- *
+ * 
+ * 
  * @param resource $identifier The gnupg identifier, from a call to
  * gnupg_init or gnupg.
  * @throws GnupgException
- *
+ * 
  */
-function gnupg_cleardecryptkeys($identifier): void
+function gnupg_cleardecryptkeys( $identifier): void
 {
     error_clear_last();
     $result = \gnupg_cleardecryptkeys($identifier);
@@ -86,14 +86,14 @@ function gnupg_cleardecryptkeys($identifier): void
 
 
 /**
- *
- *
+ * 
+ * 
  * @param resource $identifier The gnupg identifier, from a call to
  * gnupg_init or gnupg.
  * @throws GnupgException
- *
+ * 
  */
-function gnupg_clearencryptkeys($identifier): void
+function gnupg_clearencryptkeys( $identifier): void
 {
     error_clear_last();
     $result = \gnupg_clearencryptkeys($identifier);
@@ -104,14 +104,14 @@ function gnupg_clearencryptkeys($identifier): void
 
 
 /**
- *
- *
+ * 
+ * 
  * @param resource $identifier The gnupg identifier, from a call to
  * gnupg_init or gnupg.
  * @throws GnupgException
- *
+ * 
  */
-function gnupg_clearsignkeys($identifier): void
+function gnupg_clearsignkeys( $identifier): void
 {
     error_clear_last();
     $result = \gnupg_clearsignkeys($identifier);
@@ -122,17 +122,37 @@ function gnupg_clearsignkeys($identifier): void
 
 
 /**
+ * 
+ * 
+ * @param resource $identifier The gnupg identifier, from a call to
+ * gnupg_init or gnupg.
+ * @param string $key The key to delete.
+ * @param bool $allow_secret It specifies whether to delete secret keys as well.
+ * @throws GnupgException
+ * 
+ */
+function gnupg_deletekey( $identifier, string $key, bool $allow_secret): void
+{
+    error_clear_last();
+    $result = \gnupg_deletekey($identifier, $key, $allow_secret);
+    if ($result === false) {
+        throw GnupgException::createFromPhpError();
+    }
+}
+
+
+/**
  * Toggle the armored output.
- *
+ * 
  * @param resource $identifier The gnupg identifier, from a call to
  * gnupg_init or gnupg.
  * @param int $armor Pass a non-zero integer-value to this function to enable armored-output
  * (default).
  * Pass 0 to disable armored output.
  * @throws GnupgException
- *
+ * 
  */
-function gnupg_setarmor($identifier, int $armor): void
+function gnupg_setarmor( $identifier, int $armor): void
 {
     error_clear_last();
     $result = \gnupg_setarmor($identifier, $armor);
@@ -144,11 +164,11 @@ function gnupg_setarmor($identifier, int $armor): void
 
 /**
  * Sets the mode for signing.
- *
+ * 
  * @param resource $identifier The gnupg identifier, from a call to
  * gnupg_init or gnupg.
  * @param int $signmode The mode for signing.
- *
+ * 
  * signmode takes a constant indicating what type of
  * signature should be produced. The possible values are
  * GNUPG_SIG_MODE_NORMAL,
@@ -156,9 +176,9 @@ function gnupg_setarmor($identifier, int $armor): void
  * GNUPG_SIG_MODE_CLEAR.
  * By default GNUPG_SIG_MODE_CLEAR is used.
  * @throws GnupgException
- *
+ * 
  */
-function gnupg_setsignmode($identifier, int $signmode): void
+function gnupg_setsignmode( $identifier, int $signmode): void
 {
     error_clear_last();
     $result = \gnupg_setsignmode($identifier, $signmode);
@@ -166,3 +186,5 @@ function gnupg_setsignmode($identifier, int $signmode): void
         throw GnupgException::createFromPhpError();
     }
 }
+
+

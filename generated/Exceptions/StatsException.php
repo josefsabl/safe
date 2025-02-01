@@ -1,7 +1,7 @@
 <?php
 namespace Safe\Exceptions;
 
-class MysqlndMsException extends \ErrorException implements SafeExceptionInterface
+class StatsException extends \ErrorException implements SafeExceptionInterface
 {
     public static function createFromPhpError(): self
     {
